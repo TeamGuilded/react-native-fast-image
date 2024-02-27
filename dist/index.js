@@ -60,6 +60,7 @@ class PreloaderManager {
 
 const preloaderManager = new PreloaderManager();
 
+const FastImageViewModule = NativeModules.FastImageView;
 const resizeMode = {
   contain: "contain",
   cover: "cover",
@@ -149,7 +150,10 @@ const styles = StyleSheet.create({
   imageContainer: {
     overflow: "hidden"
   }
-}); // Types of requireNativeComponent are not correct.
+});
+
+FastImage.setDiskCacheSize = maxSizeInBytes => FastImageViewModule.setDiskCacheSize(maxSizeInBytes); // Types of requireNativeComponent are not correct.
+
 
 const FastImageView = requireNativeComponent("FastImageView", FastImage, {
   nativeOnly: {

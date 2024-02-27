@@ -11,9 +11,11 @@ import {
     TransformsStyle,
     AccessibilityProps,
     ViewProps,
+    NativeModules,
 } from "react-native";
 
 import preloaderManager from "./PreloaderManager";
+const FastImageViewModule = NativeModules.FastImageView;
 
 export type ResizeMode = "contain" | "cover" | "stretch" | "center";
 
@@ -215,6 +217,7 @@ export interface FastImageStaticProperties {
         onProgress?: PreloadProgressHandler,
         onComplete?: PreloadCompletionHandler
     ) => void;
+    setDiskCacheSize: (maxSizeInBytes: number) => Promise<void>;
 }
 
 const FastImage: React.ComponentType<FastImageProps> &
@@ -237,6 +240,9 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
 });
+
+FastImage.setDiskCacheSize = (maxSizeInBytes: number) =>
+    FastImageViewModule.setDiskCacheSize(maxSizeInBytes);
 
 // Types of requireNativeComponent are not correct.
 const FastImageView = (requireNativeComponent as any)(
