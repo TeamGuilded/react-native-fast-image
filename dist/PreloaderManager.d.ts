@@ -21,6 +21,7 @@ declare class PreloaderManager {
     preload(sources: Source[], onProgress?: PreloadProgressHandler, onComplete?: PreloadCompletionHandler): void;
     onProgress({ id, finished, total }: OnProgressParams): void;
     onComplete({ id, finished, skipped }: OnCompleteParams): void;
+    setDiskCacheSize(maxSizeInBytes: number): any;
 }
 declare const preloaderManager: PreloaderManager;
 export default preloaderManager;

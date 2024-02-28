@@ -64,8 +64,8 @@ class FastImageViewModule extends ReactContextBaseJavaModule {
         });
     }
 
-        @ReactMethod
-    public void setMaxDiskCacheSize(int maxSizeInBytes, final Promise promise) {
+    @ReactMethod
+    public void setDiskCacheSize(int maxSizeInBytes, final Promise promise) {
         final Activity activity = getCurrentActivity();
         if (activity == null) {
             promise.resolve(false);

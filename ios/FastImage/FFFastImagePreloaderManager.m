@@ -2,6 +2,7 @@
 #import "FFFastImagePreloader.h"
 #import "FFFastImageSource.h"
 #import "SDWebImageDownloader.h"
+#import <SDWebImage/SDImageCache.h>
 
 @implementation FFFastImagePreloaderManager
 {
@@ -74,6 +75,16 @@ RCT_EXPORT_METHOD(preload:(nonnull NSNumber*)preloaderId sources:(nonnull NSArra
     
     FFFastImagePreloader* preloader = _preloaders[preloaderId];
     [preloader prefetchURLs:urls];
+}
+
+RCT_EXPORT_METHOD(setDiskCacheSize:(NSInteger)maxSizeInBytes resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+{
+    #ifdef DEBUG
+        NSLog(@"Setting disk cache size to: %ld", (long)maxSizeInBytes);
+    #endif
+    [SDImageCache.sharedImageCache.config setMaxDiskSize:maxSizeInBytes];
+    
+    resolve(NULL);
 }
 
 @end

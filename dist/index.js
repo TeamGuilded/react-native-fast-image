@@ -56,11 +56,14 @@ class PreloaderManager {
     }
   }
 
+  setDiskCacheSize(maxSizeInBytes) {
+    return nativeManager.setDiskCacheSize(maxSizeInBytes);
+  }
+
 }
 
 const preloaderManager = new PreloaderManager();
 
-const FastImageViewModule = NativeModules.FastImageView;
 const resizeMode = {
   contain: "contain",
   cover: "cover",
@@ -146,14 +149,13 @@ FastImage.priority = priority;
 
 FastImage.preload = (sources, onProgress, onComplete) => preloaderManager.preload(sources, onProgress, onComplete);
 
+FastImage.setDiskCacheSize = maxSizeInBytes => preloaderManager.setDiskCacheSize(maxSizeInBytes);
+
 const styles = StyleSheet.create({
   imageContainer: {
     overflow: "hidden"
   }
-});
-
-FastImage.setDiskCacheSize = maxSizeInBytes => FastImageViewModule.setDiskCacheSize(maxSizeInBytes); // Types of requireNativeComponent are not correct.
-
+}); // Types of requireNativeComponent are not correct.
 
 const FastImageView = requireNativeComponent("FastImageView", FastImage, {
   nativeOnly: {

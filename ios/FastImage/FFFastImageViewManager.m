@@ -1,6 +1,5 @@
 #import "FFFastImageViewManager.h"
 #import "FFFastImageView.h"
-#import <SDWebImage/SDImageCache.h>
 
 @implementation FFFastImageViewManager
 
@@ -18,15 +17,5 @@ RCT_EXPORT_VIEW_PROPERTY(onFastImageError, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFastImageLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFastImageLoadEnd, RCTDirectEventBlock)
 RCT_REMAP_VIEW_PROPERTY(tintColor, imageColor, UIColor)
-
-RCT_EXPORT_METHOD(setDiskCacheSize:(NSInteger)maxSizeInBytes resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
-{
-    #ifdef DEBUG
-        NSLog(@"Setting disk cache size to: %ld", (long)maxSizeInBytes);
-    #endif
-    [SDImageCache.sharedImageCache.config setMaxDiskSize:maxSizeInBytes];
-    
-    resolve(NULL);
-}
 
 @end
