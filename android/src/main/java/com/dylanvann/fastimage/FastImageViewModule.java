@@ -63,4 +63,16 @@ class FastImageViewModule extends ReactContextBaseJavaModule {
             }
         });
     }
+
+        @ReactMethod
+    public void setMaxDiskCacheSize(int maxSizeInBytes, final Promise promise) {
+        final Activity activity = getCurrentActivity();
+        if (activity == null) {
+            promise.resolve(false);
+            return;
+        }
+        GlideBuilder builder = new GlideBuilder();
+        builder.setDiskCache(new InternalCacheDiskCacheFactory(activity, maxSizeInBytes));
+        promise.resolve(true);
+    }
 }
